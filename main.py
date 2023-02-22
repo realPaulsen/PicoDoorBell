@@ -1,8 +1,3 @@
-# A simple example that:
-# - Connects to a WiFi Network defined by "ssid" and "password"
-# - Performs a GET request (loads a webpage)
-# - Queries the current time from a server
-
 import network   # handles connecting to WiFi
 import urequests # handles making and servicing network requests
 import time
@@ -93,6 +88,10 @@ led.off()
 
 while True:
     if is_bell_pressed():
+
+        if (not is_wifi_connected()): # reconnect to wifi
+            connect_to_wifi()
+
         led.on()
         send_message(text) # send Telegrammessage
         time.sleep(time_cooldown_message) # cooldown

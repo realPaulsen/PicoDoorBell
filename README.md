@@ -3,8 +3,8 @@
 Doorbell notifier powered by Raspberry Pi Pico W and Telegram.
 
 ![](images/pico01.jpg)
+![](images/pico02.jpg)
 
-<a href='https://ko-fi.com/A623L7G' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=f' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Mauker1/PicoDoorBell/main/LICENSE)
 
 ---
@@ -16,13 +16,8 @@ This project works by sending a notification through a Telegram bot. You could s
 ### Hardware list
 
 - 01 Raspberry Pi Pico W
-- 01 USB-C battery charger - [DEBO1 3.7LI 1.0A](https://www.reichelt.de/de/de/entwicklerboards-ladeplatine-fuer-3-7v-li-akkus-usb-c-1a-debo1-3-7li-1-0a-p291398.html) - Based on the TC4056 chipset.
-- 01 [150 mAh lipo battery](https://www.amazon.de/VinCorp-150mAh-Stecker-Empf%C3%A4nger-Quadrocopter/dp/B086B8NRQ4).
-- 01 180 ohms resistor.
-- 01 5.1 ohms resistor.
-- 01 push button for reset.
-- 01 toggle switch for power.
-- 01 [PC817 optocoupler](https://www.reichelt.de/optokoppler-fototransistorausgang-5-3-kv-ctr-100-200-dip-4-sfh-617a-3-vis-p216809.html).
+- 01 25v to 5v DC-Stepdown converter
+- 01 N-Type Transistor
 - Your doorbell :D Mine is a Ritto Twinbus 7630 indoor.
 
 DISCLAIMER: Even though this project works fine for me and with my specific doorbell, it doesn't mean it will work with any system. This project does not come with any guarantee whatsoever. If you want to implement this, do it at your own responsibility and risk.
@@ -51,9 +46,6 @@ If your Raspberry Pi Pico W is already flashed with MicroPython, skip to the nex
 
 - Download the latest Pico W EF2 file [here](https://micropython.org/download/rp2-pico-w/rp2-pico-w-latest.uf2) - Please note this **only** works with the Raspberry Pi Pico W. If you have the board without Wi-Fi **do not** flash it with this file.
 - Before plugging your Pico into your computer, locate and press the BOOTSEL button on the board and hold it.
-
-<img src="https://github.com/Mauker1/PicoDoorBell/blob/main/images/pico02.png" data-canonical-src="https://github.com/Mauker1/PicoDoorBell/blob/main/images/pico02.png" width="400" />
-
 - With the button still pressed, connect your device. It should mount as a mass storage device on your computer, named PI-RP2.
 - Drag and drop the EF2 file into the PI-RP2 storage. After it finishes copying, it will automatically unmount from your computer. Don't worry when it does; this is entirely normal.
 - And you're done. Your Pico W is now ready to run MicroPython code :)
@@ -118,5 +110,3 @@ When you have all the placeholders replaced inside `secrets.py`, you may run the
 
 - The GPIO that I used as an input to detect the button press was `GP18`, you may chose a different one to fit your project. You can change that inside `main.py`.
 - You can also send the startup and alert message inside `main.py`, look for the variables named `startupText` and `text`.
-- I am running this project on Germany, you can change the country configuration inside `main.py` as well. Look for `rp2.country('DE')`.
-- In my project I am using an optocoupler to detect the signal from my doorbell, since it runs on a different voltage than my Pico W. The doorbell sends a signal at 5V and the Pico W runs at 3.3V. I used the PC817 optocoupler with a 185Ω equivalent resistor. You can check [the datasheet here.](https://www.farnell.com/datasheets/73758.pdf)
